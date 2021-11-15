@@ -1,32 +1,25 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="#app">
+    <router-view></router-view>
+    <FooterGuide v-show="$route.meta.showFooter" />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import FooterGuide from "./components/FooterGuide/FooterGuide.vue";
+export default {
+  components: {
+    FooterGuide,
+  },
+};
+</script>
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="stylus" rel="stylesheet/stylus">
+@import url('../static/css/reset.css')
+@import url('http://at.alicdn.com/t/font_518606_6676bmcalnrhehfr.css')
+#app
+  width 100%
+  height 100%
+  background #f5f5f5
+  position relative
 </style>
