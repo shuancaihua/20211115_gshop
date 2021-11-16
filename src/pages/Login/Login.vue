@@ -25,10 +25,10 @@
               <a href="javascript:;">《用户服务协议》</a>
             </div>
           </div>
-          <div > 
+          <div>
             <div>
               <div class="login_message">
-                <inputs
+                <input
                   type="tel"
                   maxlength="11"
                   placeholder="手机/邮箱/用户名"
@@ -63,10 +63,15 @@
 </template>
 
 <script>
+import { reqFoodCategory  } from "../../api/index.js";
 export default {
   data() {
     return {};
   },
+  mounted() {
+    
+  },
+  methods: {},
 };
 </script>
  
