@@ -14,7 +14,7 @@
       </HeaderTop>
       <!--首页导航-->
       <nav class="msite_nav">
-        <div class="swiper-container">
+        <div class="swiper-container"  v-if="categorys.length">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -28,15 +28,17 @@
                 :key="index"
               >
                 <div class="food_container">
-                  <img :src="baseImageUrl+category.image_url" />
+                  <img :src="baseImageUrl + category.image_url" />
                 </div>
                 <span>{{ category.title }}</span>
               </a>
             </div>
           </div>
+         
           <!-- Add Pagination -->
           <div class="swiper-pagination"></div>
         </div>
+         <img src="./images/msite_back.svg" alt="" v-else>
       </nav>
       <!--首页附近商家-->
       <div class="msite_shop_list">
@@ -61,25 +63,24 @@ export default {
     HeaderTop,
     ShopList,
   },
-  data(){
+  data() {
     return {
-       baseImageUrl: 'https://fuss10.elemecdn.com'
-    }
+      baseImageUrl: "https://fuss10.elemecdn.com",
+    };
   },
   computed: {
     ...mapState(["address", "categorys"]),
     categorysArr() {
-      console.log(this);
       const { categorys } = this;
       let arr = []; //二维数组
       let minArr = []; //小数组
       categorys.forEach((c) => {
-        // 二维数组中的小数组不能超过8
+        // 如果当前小数组已经满了，创建一个新的
         if (minArr.length === 8) {
           minArr = [];
         }
-        // 把minArr添加到arr中形成二维数组
-        if (arr.length === 0) {
+        // 把minArr是空的，将小数组添加到到大数组中
+        if (minArr.length === 0) {
           arr.push(minArr);
         }
         minArr.push(c);
@@ -88,17 +89,36 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch('getShops');
     this.$store.dispatch("getCategorys");
+  },
+  watch: {
+    categorys(value) {
+      // 使用setTimeout可以实现效果，但不是太好
+      // setTimeout(() => {
+      //   new Swiper(".swiper-container", {
+      //     // 可以循环播放
+      //     loop: true,
+      //     // 如果需要分页器
+      //     pagination: {
+      //       el: ".swiper-pagination",
+      //     },
+      //   });
+      // }, 100);
 
-    // 创建一个Swiper实例对象，来实现轮播
-    new Swiper(".swiper-container", {
-      // 可以循环播放
-      loop: true,
-      // 如果需要分页器
-      pagination: {
-        el: ".swiper-pagination",
-      },
-    });
+      // 界面更新就立即创建Swiper对象（下一次DOM更新循环结束后执行延迟回调，第一次更新data数据更新，第二次更新界面更新）
+      this.$nextTick(() => {
+        new Swiper(".swiper-container", {
+          // 一旦完成界面更新，立即调用
+          // 可以循环播放
+          loop: true,
+          // 如果需要分页器
+          pagination: {
+            el: ".swiper-pagination",
+          },
+        });
+      });
+    },
   },
 };
 </script>
