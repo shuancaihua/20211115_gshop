@@ -94,8 +94,9 @@
                 />
                 <img
                   class="get_verification"
-                  src="../../../static/images/Login/captcha.svg"
+                  src="http://localhost:4000/captcha"
                   alt="captcha"
+                  @click="getCaptcha"
                 />
               </div>
             </div>
@@ -123,15 +124,15 @@ export default {
   data() {
     return {
       showLoginWay: true, // true 代表短信登录，false 代表密码登录
-      phone: "",
-      computeTime: 0,
-      showPwd: false,
-      pwd: "",
-      code: "",
-      name: "",
-      captcha: "",
-      alertText: "",
-      alertShow: false,
+      phone: "",// 手机号
+      computeTime: 0,//计时的事件
+      showPwd: false, // 是否显密码
+      pwd: "",// 密码
+      code: "",//手机验证码
+      name: "",//用户名
+      captcha: "",//图形验证码
+      alertText: "",//警告文本
+      alertShow: false,//是否显示警告框
     };
   },
   computed: {
@@ -161,7 +162,7 @@ export default {
     // 关闭AlertTip组件
     closeTip() {
       this.alertShow = false;
-      this.alertText = '';
+      this.alertText = "";
     },
     submit() {
       if (this.showLoginWay) {
@@ -189,6 +190,11 @@ export default {
         }
       }
     },
+    // 获取图形验证码
+    getCaptcha(event){
+      // 每次指定的src要不一样
+      event.target.src = "http://localhost:4000/captcha?time=" + Date.now()
+    }
   },
 };
 </script>
