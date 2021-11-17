@@ -94,13 +94,14 @@
                 />
                 <img
                   class="get_verification"
-                  src="../../../static/images/Login/captcha.svg"
+                  src="http://localhost:4000/captcha"
                   alt="captcha"
+                  @click="getCaptcha"
                 />
               </div>
             </div>
           </div>
-          <button class="login_submit" @click="submit">登录</button>
+          <button class="login_submit" @click="login">登录</button>
         </form>
         <a href="javascript:;" class="about_us">关于我们</a>
       </div>
@@ -123,15 +124,15 @@ export default {
   data() {
     return {
       showLoginWay: true, // true 代表短信登录，false 代表密码登录
-      phone: "",
-      computeTime: 0,
-      showPwd: false,
-      pwd: "",
-      code: "",
-      name: "",
-      captcha: "",
-      alertText: "",
-      alertShow: false,
+      phone: "", // 手机号
+      computeTime: 0, // 计时的时间
+      showPwd: false, // 是否显示密码
+      pwd: "", // 密码
+      code: "", // 短信验证码
+      name: "", // 用户名
+      captcha: "", // 图形验证码
+      alertText: "", // 提示文本
+      alertShow: false,  // 是否显示警告框
     };
   },
   computed: {
@@ -153,17 +154,17 @@ export default {
         }, 1000);
       }
     },
-    // 显示AlertTip组件
+    // 显示警告框组件
     showAlert(alertText) {
       this.alertText = alertText;
       this.alertShow = true;
     },
-    // 关闭AlertTip组件
+    // 关闭显示警告框组件
     closeTip() {
       this.alertShow = false;
       this.alertText = '';
     },
-    submit() {
+    login() {
       if (this.showLoginWay) {
         //短信登录
         const { rightPhone, phone, code } = this;
@@ -189,6 +190,10 @@ export default {
         }
       }
     },
+    // 获取图形验证码
+    getCaptcha(event){
+      event.target.src = "http://localhost:4000/captcha?=" + Date.now();
+    }
   },
 };
 </script>
