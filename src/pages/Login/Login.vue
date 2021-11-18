@@ -116,6 +116,7 @@
 
 <script>
 import AlertTip from "../../components/AlertTip/AlertTip.vue";
+import { reqSendcode } from "../../api/index";
 import { reqFoodCategory } from "../../api/index.js";
 export default {
   components: {
@@ -132,7 +133,7 @@ export default {
       name: "", // 用户名
       captcha: "", // 图形验证码
       alertText: "", // 提示文本
-      alertShow: false,  // 是否显示警告框
+      alertShow: false, // 是否显示警告框
     };
   },
   computed: {
@@ -143,15 +144,27 @@ export default {
   },
   mounted() {},
   methods: {
-    getCode() {
+    async getCode() {
       if (!this.computeTime) {
         this.computeTime = 30;
-        const intervalId = setInterval(() => {
+        this.intervalId = setInterval(() => {
           this.computeTime--;
           if (this.computeTime <= 0) {
-            clearInterval(intervalId);
+            clearInterval(this.intervalId);
           }
         }, 1000);
+      }
+
+      // 同时发送验证码请求
+      const result = await reqSendcode(this.phone);
+      console.log('result',result);
+      if (result.code === 1) {
+        this.showAlert(result.msg);
+        if (this.computeTime) {
+          this.computeTime = 0;
+          clearInterval(this.intervalId);
+          this.intervalId = null;
+        }
       }
     },
     // 显示警告框组件
@@ -191,10 +204,10 @@ export default {
       }
     },
     // 获取图形验证码
-    getCaptcha(event){
+    getCaptcha(event) {
       // 每次指定的src要不一样
-      event.target.src = "http://localhost:4000/captcha?time=" + Date.now()
-    }
+      event.target.src = "http://localhost:4000/captcha?time=" + Date.now();
+    },
   },
 };
 </script>
