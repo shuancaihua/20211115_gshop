@@ -11,10 +11,11 @@ import { mapActions } from "vuex";
 export default {
   mounted() {
     // this.$store.dispatch("getAddress");
-    this.getAddress();
+    this.getAddress(); //获取地址信息
+    this.getUserInfo(); //获取用户信息
   },
   methods: {
-    ...mapActions(["getAddress"]),
+    ...mapActions(["getAddress", "getUserInfo"]),
   },
   components: {
     FooterGuide,

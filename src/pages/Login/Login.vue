@@ -227,7 +227,7 @@ export default {
       if (result.code === 0) {
         //将user保存到vuex的state中
         const userInfo = result.data;
-        this.$store.dispatch("getUserInfo", { userInfo });
+        this.$store.dispatch("recUserInfo", { userInfo });
         this.$router.replace("/profile");
       } else {
         const msg = result.msg;

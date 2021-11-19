@@ -2,7 +2,10 @@
   <div class="profile">
     <HeaderTop title="我的"></HeaderTop>
     <div class="profile-number">
-      <router-link to="/login" class="profile-link">
+      <router-link
+        :to="userInfo._id ? '/userInfo' : '/login'"
+        class="profile-link"
+      >
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
@@ -93,11 +96,16 @@
         </div>
       </a>
     </div>
+    <div class="profile_my_order border-1px">
+      <mt-button type="danger" @click="logout" size="large">退出登录</mt-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { MessageBox, Toast } from "mint-ui";
+import { reqLogout } from "../../api/index";
 import HeaderTop from "../../components/HeaderTop/HeadTop.vue";
 export default {
   computed: {
@@ -105,6 +113,24 @@ export default {
   },
   components: {
     HeaderTop,
+  },
+  methods: {
+     logout() {
+      MessageBox.confirm("确定退出吗？").then(
+        async (action) => {
+          // 确认的回调,发送退出登录的ajax请求
+          const result = await reqLogout();
+          if (result.code === 0) {
+            Toast("退出成功");
+            // 重置state里面的用户数据
+            this.$store.dispatch("resetUserInfo");
+          }
+        },
+        (action) => {
+          // 取消的回调
+        }
+      );
+    },
   },
 };
 </script>
