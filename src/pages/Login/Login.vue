@@ -226,7 +226,8 @@ export default {
       //  根据结果数据处理
       if (result.code === 0) {
         //将user保存到vuex的state中
-        const user = result.data;
+        const userInfo = result.data;
+        this.$store.dispatch("getUserInfo", { userInfo });
         this.$router.replace("/profile");
       } else {
         const msg = result.msg;
@@ -237,7 +238,8 @@ export default {
     // 获取图形验证码
     getCaptcha() {
       // 每次指定的src要不一样
-      this.$refs.captcha.src ="http://localhost:4000/captcha?time=" + Date.now();
+      this.$refs.captcha.src =
+        "http://localhost:4000/captcha?time=" + Date.now();
     },
   },
 };

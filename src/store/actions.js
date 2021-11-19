@@ -4,17 +4,18 @@
 import {
     reqAddress,
     reqFoodCategory,
-    reqShops
+    reqShops,
 } from '../api/index'
 import {
     RECEIVE_ADDRESS,
     RECEIVE_CATEGORYS,
-    RECEIVE_SHOPS
+    RECEIVE_SHOPS,
+    RECEIVE_USER_INFO
 } from './mutation-types'
 export default {
     async getAddress({ commit, state }) {
         // 异步发送请求
-        const geohash = state.latitude + ',' + state.longitude;
+        const geohash =  state.latitude + ',' + state.longitude;
         const result = await reqAddress(geohash);
         // 异步提交mutation
         if (result.code === 0) {
@@ -41,4 +42,7 @@ export default {
             commit(RECEIVE_SHOPS, { shops })
         }
     },
+    getUserInfo({ commit }, { userInfo }) {
+        commit(RECEIVE_USER_INFO, { userInfo })
+    }
 }

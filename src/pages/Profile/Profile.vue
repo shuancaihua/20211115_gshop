@@ -1,100 +1,108 @@
 <template>
   <div class="profile">
-       <HeaderTop title="我的"></HeaderTop>
-        <div class="profile-number">
-          <router-link  to="/login" class="profile-link">
-            <div class="profile_image">
-              <i class="iconfont icon-person"></i>
-            </div>
-            <div class="user-info">
-              <p class="user-info-top">登录/注册</p>
-              <p>
-                <span class="user-icon">
-                  <i class="iconfont icon-shouji icon-mobile"></i>
-                </span>
-                <span class="icon-mobile-number">暂无绑定手机号</span>
-              </p>
-            </div>
-            <span class="arrow">
-              <i class="iconfont icon-jiantou1"></i>
-            </span>
-          </router-link>
+    <HeaderTop title="我的"></HeaderTop>
+    <div class="profile-number">
+      <router-link to="/login" class="profile-link">
+        <div class="profile_image">
+          <i class="iconfont icon-person"></i>
         </div>
-        <div class="profile_info_data border-1px">
-          <ul class="info_data_list">
-            <a href="javascript:" class="info_data_link">
-              <span class="info_data_top"><span>0.00</span>元</span>
-              <span class="info_data_bottom">我的余额</span>
-            </a>
-            <a href="javascript:" class="info_data_link">
-              <span class="info_data_top"><span>0</span>个</span>
-              <span class="info_data_bottom">我的优惠</span>
-            </a>
-            <a href="javascript:" class="info_data_link">
-              <span class="info_data_top"><span>0</span>分</span>
-              <span class="info_data_bottom">我的积分</span>
-            </a>
-          </ul>
+        <div class="user-info">
+          <!-- <p class="user-info-top">登录/注册</p> -->
+          <p class="user-info-top" v-if="!userInfo.phone">
+            {{ userInfo.name || "登录/注册" }}
+          </p>
+          <p>
+            <span class="user-icon">
+              <i class="iconfont icon-shouji icon-mobile"></i>
+            </span>
+            <span class="icon-mobile-number">{{
+              userInfo.phone || "暂无绑定手机号"
+            }}</span>
+          </p>
         </div>
-        <div class="profile_my_order border-1px">
-          <!-- 我的订单 -->
-          <a href='javascript:' class="my_order">
-            <span>
-              <i class="iconfont icon-order-s"></i>
-            </span>
-            <div class="my_order_div">
-              <span>我的订单</span>
-              <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
-              </span>
-            </div>
-          </a>
-          <!-- 积分商城 -->
-          <a href='javascript:' class="my_order">
-            <span>
-              <i class="iconfont icon-jifen"></i>
-            </span>
-            <div class="my_order_div">
-              <span>积分商城</span>
-              <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
-              </span>
-            </div>
-          </a>
-          <!-- 硅谷外卖会员卡 -->
-          <a href="javascript:" class="my_order">
-            <span>
-              <i class="iconfont icon-vip"></i>
-            </span>
-            <div class="my_order_div">
-              <span>硅谷外卖会员卡</span>
-              <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
-              </span>
-            </div>
-          </a>
+        <span class="arrow">
+          <i class="iconfont icon-jiantou1"></i>
+        </span>
+      </router-link>
+    </div>
+    <div class="profile_info_data border-1px">
+      <ul class="info_data_list">
+        <a href="javascript:" class="info_data_link">
+          <span class="info_data_top"><span>0.00</span>元</span>
+          <span class="info_data_bottom">我的余额</span>
+        </a>
+        <a href="javascript:" class="info_data_link">
+          <span class="info_data_top"><span>0</span>个</span>
+          <span class="info_data_bottom">我的优惠</span>
+        </a>
+        <a href="javascript:" class="info_data_link">
+          <span class="info_data_top"><span>0</span>分</span>
+          <span class="info_data_bottom">我的积分</span>
+        </a>
+      </ul>
+    </div>
+    <div class="profile_my_order border-1px">
+      <!-- 我的订单 -->
+      <a href="javascript:" class="my_order">
+        <span>
+          <i class="iconfont icon-order-s"></i>
+        </span>
+        <div class="my_order_div">
+          <span>我的订单</span>
+          <span class="my_order_icon">
+            <i class="iconfont icon-jiantou1"></i>
+          </span>
         </div>
-        <div class="profile_my_order border-1px">
-          <!-- 服务中心 -->
-          <a href="javascript:" class="my_order">
-            <span>
-              <i class="iconfont icon-fuwu"></i>
-            </span>
-            <div class="my_order_div">
-              <span>服务中心</span>
-              <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
-              </span>
-            </div>
-          </a>
+      </a>
+      <!-- 积分商城 -->
+      <a href="javascript:" class="my_order">
+        <span>
+          <i class="iconfont icon-jifen"></i>
+        </span>
+        <div class="my_order_div">
+          <span>积分商城</span>
+          <span class="my_order_icon">
+            <i class="iconfont icon-jiantou1"></i>
+          </span>
         </div>
-      </div>
-   
+      </a>
+      <!-- 硅谷外卖会员卡 -->
+      <a href="javascript:" class="my_order">
+        <span>
+          <i class="iconfont icon-vip"></i>
+        </span>
+        <div class="my_order_div">
+          <span>硅谷外卖会员卡</span>
+          <span class="my_order_icon">
+            <i class="iconfont icon-jiantou1"></i>
+          </span>
+        </div>
+      </a>
+    </div>
+    <div class="profile_my_order border-1px">
+      <!-- 服务中心 -->
+      <a href="javascript:" class="my_order">
+        <span>
+          <i class="iconfont icon-fuwu"></i>
+        </span>
+        <div class="my_order_div">
+          <span>服务中心</span>
+          <span class="my_order_icon">
+            <i class="iconfont icon-jiantou1"></i>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import HeaderTop from "../../components/HeaderTop/HeadTop.vue";
 export default {
+  computed: {
+    ...mapState(["userInfo"]),
+  },
   components: {
     HeaderTop,
   },
@@ -103,7 +111,7 @@ export default {
  
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../common/stylus/mixins.styl'
-.profile //我的
+.profile // 我的
   width 100%
   overflow hidden
   .header
@@ -168,7 +176,7 @@ export default {
         margin-top 8px
         margin-left 15px
         p
-          font-weight: 700
+          font-weight 700
           font-size 18px
           color #fff
           &.user-info-top
@@ -176,7 +184,7 @@ export default {
           .user-icon
             display inline-block
             margin-left -15px
-            margin-right 5px
+            margin-right 10px
             width 20px
             height 20px
             .icon-mobile
@@ -273,5 +281,4 @@ export default {
           .icon-jiantou1
             color #bbb
             font-size 10px
-
 </style>
