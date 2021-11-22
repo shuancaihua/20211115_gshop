@@ -6,7 +6,7 @@
         v-for="(shop, index) in shops"
         :key="index"
       >
-        <a>
+        <a @click="$router.push('/shop')">
           <div class="shop_left">
             <img class="shop_img" :src="baseImgUrl + shop.image_path" />
           </div>

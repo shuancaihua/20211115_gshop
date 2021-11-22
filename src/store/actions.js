@@ -5,14 +5,21 @@ import {
     reqAddress,
     reqFoodCategory,
     reqShops,
-    reqUserinfo
+    reqUserinfo,
+    reqLogout,
+    reShopgGoods,
+    regShopRatings,
+    regShopInfo
 } from '../api/index'
 import {
     RECEIVE_ADDRESS,
     RECEIVE_CATEGORYS,
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
-    RESET_USER_INFO
+    RESET_USER_INFO,
+    RECEIVE_GOODS,
+    RECEIVE_RATINGS,
+    RECEIVE_INFO
 } from './mutation-types'
 export default {
     async getAddress({ commit, state }) {
@@ -57,7 +64,32 @@ export default {
         }
     },
     // 同步重置用户信息
-    resetUserInfo({commit}){
-        commit(RESET_USER_INFO)
-    }   
+    async resetUserInfo({ commit }) {
+        const result = await reqLogout();
+        if (result.code === 0) {
+            commit(RESET_USER_INFO)
+        }
+
+    },
+    // 获取商品信息
+    async getShopGoods({ commit }) {
+        const result = await reShopgGoods();
+        if (result.code === 0) {
+            commit(RECEIVE_GOODS, { goods: result.data })
+        }
+    },
+    // 获取评论信息
+    async getShopRatings({ commit }) {
+        const result = await regShopRatings();
+        if (result.code === 0) {
+            commit(RECEIVE_RATINGS, { ratings: result.data })
+        }
+    },
+    // 获取商家信息
+    async getShopInfo({ commit }) {
+        const result = await regShopInfo();
+        if (result.code === 0) {
+            commit(RECEIVE_INFO,{ info: result.data })
+        }
+    },
 }

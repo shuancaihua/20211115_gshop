@@ -97,7 +97,9 @@
       </a>
     </div>
     <div class="profile_my_order border-1px">
-      <mt-button type="danger" @click="logout" size="large">退出登录</mt-button>
+      <mt-button type="danger" @click="logout" size="large" v-if="userInfo._id"
+        >退出登录</mt-button
+      >
     </div>
   </div>
 </template>
@@ -105,7 +107,6 @@
 <script>
 import { mapState } from "vuex";
 import { MessageBox, Toast } from "mint-ui";
-import { reqLogout } from "../../api/index";
 import HeaderTop from "../../components/HeaderTop/HeadTop.vue";
 export default {
   computed: {
@@ -115,19 +116,17 @@ export default {
     HeaderTop,
   },
   methods: {
-     logout() {
+    logout() {
       MessageBox.confirm("确定退出吗？").then(
-        async (action) => {
-          // 确认的回调,发送退出登录的ajax请求
-          const result = await reqLogout();
-          if (result.code === 0) {
-            Toast("退出成功");
-            // 重置state里面的用户数据
-            this.$store.dispatch("resetUserInfo");
-          }
+        (action) => {// 确认的回调,发送退出登录的ajax请求
+          // 重置state里面的用户数据
+          this.$store.dispatch("resetUserInfo");
+          // 退出成功提示
+          Toast("退出成功");
         },
         (action) => {
           // 取消的回调
+          console.log('点击了取消');
         }
       );
     },

@@ -142,7 +142,9 @@ export default {
       return /^1\d{10}$/.test(this.phone);
     },
   },
-  mounted() {},
+  mounted() {
+    this.getCaptcha();
+  },
   methods: {
     async getCode() {
       if (!this.computeTime) {

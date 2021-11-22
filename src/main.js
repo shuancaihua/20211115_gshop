@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { Button } from 'mint-ui'
+import './mock/mockServer.js' // 加载mockServer.js即可
 Vue.component(Button.name, Button);
 Vue.use('http://at.alicdn.com/t/font_518606_6676bmcalnrhehfr.css')
 new Vue({
