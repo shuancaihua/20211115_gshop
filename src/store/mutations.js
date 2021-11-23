@@ -1,6 +1,7 @@
 /*
     直接给鞥新state的多个方法的对象
 */
+import Vue from 'vue'
 import {
     RECEIVE_ADDRESS,
     RECEIVE_CATEGORYS,
@@ -10,6 +11,8 @@ import {
     RECEIVE_GOODS,
     RECEIVE_RATINGS,
     RECEIVE_INFO,
+    INCREMENT_FOOD_COUNT,
+    DECREMENT_FOOD_COUNT
 } from './mutation-types'
 export default {
     [RECEIVE_ADDRESS](state, { address }) {
@@ -35,7 +38,20 @@ export default {
     },
     [RECEIVE_INFO](state, { info }) {
         state.info = info
+    },
+    [INCREMENT_FOOD_COUNT](state, { food }) {
+        if (!food.count) {
+            Vue.set(food, 'count', 1)
+        } else {
+            food.count++
+        }
+    },
+    [DECREMENT_FOOD_COUNT](state, { food }) {
+        if (food.count) {
+            food.count--;
+        }
     }
+
 
 
 

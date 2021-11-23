@@ -6,6 +6,10 @@ export const RECEIVE_CATEGORYS = 'receive_categorys';//接收食品分类信息
 export const RECEIVE_SHOPS = 'receive_shops';//接收商信息
 export const RECEIVE_USER_INFO = 'receive_user_info';//接收用户信息
 export const RESET_USER_INFO = 'reset_user_info';//接收用户信息
-export const RECEIVE_GOODS = 'receive_goods';//接收用户信息
+
+export const RECEIVE_GOODS = 'receive_goods';//接收商品列表
 export const RECEIVE_RATINGS = 'receive_ratings';//接收用户信息
 export const RECEIVE_INFO = 'reset_info';//接收用户信息
+
+export const INCREMENT_FOOD_COUNT = 'increment_food_count';//接收Count加
+export const DECREMENT_FOOD_COUNT = 'decrement_food_count';//接收Count减

@@ -19,7 +19,9 @@ import {
     RESET_USER_INFO,
     RECEIVE_GOODS,
     RECEIVE_RATINGS,
-    RECEIVE_INFO
+    RECEIVE_INFO,
+    INCREMENT_FOOD_COUNT,
+    DECREMENT_FOOD_COUNT
 } from './mutation-types'
 export default {
     async getAddress({ commit, state }) {
@@ -72,10 +74,11 @@ export default {
 
     },
     // 获取商品信息
-    async getShopGoods({ commit }) {
+    async getShopGoods({ commit }, callback) {
         const result = await reShopgGoods();
         if (result.code === 0) {
             commit(RECEIVE_GOODS, { goods: result.data })
+            callback && callback();
         }
     },
     // 获取评论信息
@@ -89,7 +92,18 @@ export default {
     async getShopInfo({ commit }) {
         const result = await regShopInfo();
         if (result.code === 0) {
-            commit(RECEIVE_INFO,{ info: result.data })
+            commit(RECEIVE_INFO, { info: result.data })
+        }
+    },
+
+
+    // 获取商家信息
+    addIncrementFoodCount({ commit }, { isAdd, food }) {
+        // 如果isAdd为true，表示增加，否则减少
+        if (isAdd) {
+            commit(INCREMENT_FOOD_COUNT, { food })
+        } else {
+            commit(DECREMENT_FOOD_COUNT, { food })
         }
     },
 }
