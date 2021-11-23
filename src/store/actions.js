@@ -96,9 +96,8 @@ export default {
         }
     },
 
-
-    // 获取商家信息
-    addIncrementFoodCount({ commit }, { isAdd, food }) {
+    // 更新food中的count
+    updateFoodCount({ commit }, { isAdd, food }) {
         // 如果isAdd为true，表示增加，否则减少
         if (isAdd) {
             commit(INCREMENT_FOOD_COUNT, { food })

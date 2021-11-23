@@ -4,12 +4,12 @@
     <div
       class="iconfont icon-remove_circle_outline"
       v-show="food.count"
-      @click="clickUpdateNumber(false)"
+      @click="updateFoodCount(false)"
     ></div>
     <div class="cart-count" v-show="food.count">{{ food.count }}</div>
     <div
       class="iconfont icon-add_circle"
-      @click="clickUpdateNumber(true)"
+      @click="updateFoodCount(true)"
     ></div>
      </transition>
   </div>
@@ -26,9 +26,9 @@ export default {
     };
   },
   methods: {
-    clickUpdateNumber(isAdd) {
+    updateFoodCount(isAdd) {
       //  isAdd判断是否是增加
-      this.$store.dispatch("addIncrementFoodCount",{isAdd,food:this.food});
+      this.$store.dispatch("updateFoodCount",{isAdd,food:this.food});
     },
   },
 };
