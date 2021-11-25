@@ -141,3 +141,5 @@
         初始化数据一开始不能为null，为null就会报错
      
     3). vue transition动画
+
+    

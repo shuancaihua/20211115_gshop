@@ -1,17 +1,17 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-    <div
-      class="iconfont icon-remove_circle_outline"
-      v-show="food.count"
-      @click="updateFoodCount(false)"
-    ></div>
+      <div
+        class="iconfont icon-remove_circle_outline"
+        v-show="food.count"
+        @click.stop="updateFoodCount(false)"
+      ></div>
+    </transition>
     <div class="cart-count" v-show="food.count">{{ food.count }}</div>
     <div
       class="iconfont icon-add_circle"
-      @click="updateFoodCount(true)"
+      @click.stop="updateFoodCount(true)"
     ></div>
-     </transition>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
   methods: {
     updateFoodCount(isAdd) {
       //  isAdd判断是否是增加
-      this.$store.dispatch("updateFoodCount",{isAdd,food:this.food});
+      this.$store.dispatch("updateFoodCount", { isAdd, food: this.food });
     },
   },
 };
@@ -44,18 +44,17 @@ export default {
     line-height 24px
     font-size 24px
     color rgb(0, 160, 220)
-    &.move-enter-active,&.move-leave-active
-      transition: all .3s
-    &.move-enter,&.move-leave-to  
+    &.move-enter-active, &.move-leave-active
+      transition all 0.3s
+    &.move-enter, &.move-leave-to
       opacity 0
-      transform: translateX(15px) rotate(180deg)  
+      transform translateX(15px) rotate(180deg)
   .icon-remove_circle_outline
     display inline-block
     padding 6px
     line-height 24px
     font-size 24px
     color $green
-    
   .cart-count
     display inline-block
     vertical-align top

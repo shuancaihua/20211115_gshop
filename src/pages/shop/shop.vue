@@ -12,22 +12,24 @@
         <router-link to="/shop/info">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
+import ShopHeader from "../../components/ShopHeader/ShopHeader.vue";
 export default {
   data() {
     return {};
   },
-  components:{
-    ShopHeader
+  components: {
+    ShopHeader,
   },
-  mounted(){
+  mounted() {
     this.$store.dispatch("getShopInfo");
-  }
+  },
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus" >

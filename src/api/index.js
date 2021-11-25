@@ -28,6 +28,6 @@ export const reqLogout = () => ajax(BASE_URL + '/logout');
 // 11、获取商品
 export const reShopgGoods = () => ajax('/goods');
 // 12、获取评论信息
-export const regShopRatings = () => ajax('/rating');
+export const regShopRatings = () => ajax('/ratings');
 // 13、获取商家信息
 export const regShopInfo = () => ajax('/info');

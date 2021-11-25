@@ -12,7 +12,9 @@ import {
     RECEIVE_RATINGS,
     RECEIVE_INFO,
     INCREMENT_FOOD_COUNT,
-    DECREMENT_FOOD_COUNT
+    DECREMENT_FOOD_COUNT,
+    CLEAR_CART,
+    RECEIVE_SEARCH_SHOPS
 } from './mutation-types'
 export default {
     [RECEIVE_ADDRESS](state, { address }) {
@@ -42,6 +44,8 @@ export default {
     [INCREMENT_FOOD_COUNT](state, { food }) {
         if (!food.count) {
             Vue.set(food, 'count', 1)
+            // 初始化的时候把数据添加进去
+            state.cartFoods.push(food)
         } else {
             food.count++
         }
@@ -49,11 +53,19 @@ export default {
     [DECREMENT_FOOD_COUNT](state, { food }) {
         if (food.count) {
             food.count--;
+            // 将food从cartFoods中移除
+            if (food.count === 0) {
+                state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
+            }
         }
+    },
+    [CLEAR_CART](state) {
+        // 清除food中的count或者delete food.count
+        state.cartFoods.forEach(food => food.count = 0);
+        // 移除购物车中所有的购物项
+        state.cartFoods = []
+    },
+    [RECEIVE_SEARCH_SHOPS](state,{ searchShops }) {
+        state.searchShops = searchShops
     }
-
-
-
-
-
 }

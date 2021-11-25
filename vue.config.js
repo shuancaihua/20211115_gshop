@@ -11,5 +11,15 @@ module.exports = {
                 changeOrigin: true //用于控制请求头中的host值
             }
         }
+    },
+    chainWebpack: (config) => {
+        if (process.env.NODE_ENV === "production") {
+            if (process.env.npm_config_report) {
+                config
+                    .plugin("webpack-bundle-analyzer")
+                    .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin)
+                    .end();
+            }
+        }
     }
 }

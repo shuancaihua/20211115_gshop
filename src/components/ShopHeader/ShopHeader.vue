@@ -94,28 +94,30 @@
         <div class="brief-modal-cover"></div>
       </div>
     </transition>
-    <div class="activity-sheet" v-show="activitySheetShow">
-      <div class="activity-sheet-content">
-        <h2 class="activity-sheet-title">优惠活动</h2>
-        <ul class="list" v-if="info.supports != undefined">
-          <li
-            class="activity-item activity-green"
-            :class="supportClass[support.type]"
-            v-for="(support, index) in info.supports"
-            :key="index"
-          >
-            <span class="content-tag">
-              <span class="mini-tag">{{ support.name }}</span>
-            </span>
-            <span class="activity-content">{{ support.content }}</span>
-          </li>
-        </ul>
-        <div class="activity-sheet-close" @click="toggleSupportShow">
-          <span class="iconfont icon-close"></span>
+    <transition name="move">
+      <div class="activity-sheet" v-show="activitySheetShow">
+        <div class="activity-sheet-content">
+          <h2 class="activity-sheet-title">优惠活动</h2>
+          <ul class="list" v-if="info.supports != undefined">
+            <li
+              class="activity-item activity-green"
+              :class="supportClass[support.type]"
+              v-for="(support, index) in info.supports"
+              :key="index"
+            >
+              <span class="content-tag">
+                <span class="mini-tag">{{ support.name }}</span>
+              </span>
+              <span class="activity-content">{{ support.content }}</span>
+            </li>
+          </ul>
+          <div class="activity-sheet-close" @click="toggleSupportShow">
+            <span class="iconfont icon-close"></span>
+          </div>
         </div>
+        <div class="activity-sheet-cover"></div>
       </div>
-      <div class="activity-sheet-cover"></div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -332,10 +334,10 @@ export default {
     z-index 52
     flex-direction column
     color #333
-      &.shopFade-enter-active, &.shopFade-leave-active
-        transition opacity 0.5s
-      &.shopFade-enter, &.shopFade-leave-to
-        opacity 0
+    &.shopFade-enter-active, &.shopFade-leave-active
+      transition opacity 0.5s
+    &.shopFade-enter, &.shopFade-leave-to
+      opacity 0
     .brief-modal-cover
       position absolute
       width 100%
@@ -438,7 +440,7 @@ export default {
     z-index 99
     &.move-enter-active, &.move-leave-active
       transition opacity 0.3s
-    &.move-enter-active, &.move-leave-active
+    &.move-enter, &.move-leave-to
       opacity 0
     .activity-sheet-content
       position absolute

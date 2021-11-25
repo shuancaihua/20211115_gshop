@@ -9,7 +9,8 @@ import {
     reqLogout,
     reShopgGoods,
     regShopRatings,
-    regShopInfo
+    regShopInfo,
+    reqSearchShops
 } from '../api/index'
 import {
     RECEIVE_ADDRESS,
@@ -21,7 +22,9 @@ import {
     RECEIVE_RATINGS,
     RECEIVE_INFO,
     INCREMENT_FOOD_COUNT,
-    DECREMENT_FOOD_COUNT
+    DECREMENT_FOOD_COUNT,
+    CLEAR_CART,
+    RECEIVE_SEARCH_SHOPS
 } from './mutation-types'
 export default {
     async getAddress({ commit, state }) {
@@ -37,6 +40,7 @@ export default {
     async getCategorys({ commit }) {
         // 异步发送请求
         const result = await reqFoodCategory();
+        console.log('result', result);
         // 异步提交mutation
         if (result.code === 0) {
             const categorys = result.data;
@@ -82,17 +86,20 @@ export default {
         }
     },
     // 获取评论信息
-    async getShopRatings({ commit }) {
+    async getShopRatings({ commit }, callBack) {
         const result = await regShopRatings();
+        console.log('result', result);
         if (result.code === 0) {
             commit(RECEIVE_RATINGS, { ratings: result.data })
+            callBack && callBack();
         }
     },
     // 获取商家信息
-    async getShopInfo({ commit }) {
+    async getShopInfo({ commit }, callBack) {
         const result = await regShopInfo();
         if (result.code === 0) {
             commit(RECEIVE_INFO, { info: result.data })
+            callBack && callBack();
         }
     },
 
@@ -105,4 +112,21 @@ export default {
             commit(DECREMENT_FOOD_COUNT, { food })
         }
     },
+
+    // 同步清除购物车里面所有的数据
+    clearCart({ commit }) {
+        commit(CLEAR_CART)
+    },
+
+    // 异步获取搜索列表
+
+    async getSearchShops({ commit, state }, keyword) {
+        const geohash = state.latitude + ',' + state.longitude;
+        const result = await reqSearchShops(geohash, keyword);
+        if (result.code === 0) {
+            const searchShops = result.data;
+            console.log('searchShops', searchShops);
+            commit(RECEIVE_SEARCH_SHOPS, { searchShops })
+        }
+    }
 }
