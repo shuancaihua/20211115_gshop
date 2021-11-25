@@ -194,8 +194,8 @@ export default {
  *      tops:所有右侧分裂li的top组成的数组（列表第一次显示后不在变化）
  *
  * 编码：
- *    1.在滑动过程中，实时手机scrollY
- *    2.列表第一次显示，手机tops
+ *    1.在滑动过程中，实时收集scrollY
+ *    2.列表第一次显示，收集tops
  *    3.实现currentIndex的计算逻辑
  * */
 </script>
